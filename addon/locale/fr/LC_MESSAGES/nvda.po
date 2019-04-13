@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'beepKeyboard' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'beepKeyboard' '0.1b1'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
+"POT-Creation-Date: 2019-04-13 20:16+0200\n"
+"PO-Revision-Date: 2019-04-13 20:44+0200\n"
+"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: addon\globalPlugins\beepKeyboard.py:30 buildVars.py:17
+msgid "Beep keyboard"
+msgstr "Beep keyboard"
+
+#. Translators: label for a checkbox option in the settings panel.
+#: addon\globalPlugins\beepKeyboard.py:35
+msgid "Beep for uppercases  when &caps lock is on"
+msgstr "Bip pour les majuscules quand le &verrouillage majuscule est activé"
+
+#. Translators: label for a checkbox option in the settings panel.
+#: addon\globalPlugins\beepKeyboard.py:38
+msgid "Beep for typed characters when &shift is pressed"
+msgstr "Bip pour les caractères saisis lorsque vous appuyez sur la touche &maj"
+
+#. Translators: label for a checkbox option in the settings panel.
+#: addon\globalPlugins\beepKeyboard.py:41
+msgid "Beep for &toggle keys changes"
+msgstr ""
+"Beep pendant le changement de l'état des &touches de l'interrupteur à bascule"
+
+#. Translators: label for a checkbox option in the settings panel.
+#: addon\globalPlugins\beepKeyboard.py:44
+msgid ""
+"&Announce toggle keys changes (if Beep for toggle keys changes is disabled "
+"NVDA will have the original behavior)"
+msgstr ""
+"&Annoncer le changement de l'état des  touches de l'interrupteur à bascule "
+"(si l'option \"Beep pendant le changement de l'état des touches de "
+"l'interrupteur à bascule\" est désactivé, NVDA aura le comportement "
+"d'origine)"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid "This add-on beeps with some keyboard events."
+msgstr ""
+"Cette extension dit à NVDA d'émettre des bips avec certains événements du "
+"clavier."
