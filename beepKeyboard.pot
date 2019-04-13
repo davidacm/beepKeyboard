@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 'beepKeyboard' '0.1b1'\n"
+"Project-Id-Version: 'beepKeyboard' '0.1b2'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2019-04-12 20:20-0600\n"
+"POT-Creation-Date: 2019-04-13 09:13-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,27 +20,27 @@ msgstr ""
 #. Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\beepKeyboard.py:31 buildVars.py:17
+#: addon\globalPlugins\beepKeyboard.py:30 buildVars.py:17
 msgid "Beep keyboard"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:36
+#: addon\globalPlugins\beepKeyboard.py:35
 msgid "Beep for uppercases  when &caps lock is on"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:39
+#: addon\globalPlugins\beepKeyboard.py:38
 msgid "Beep for typed characters when &shift is pressed"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:42
+#: addon\globalPlugins\beepKeyboard.py:41
 msgid "Beep for &toggle keys changes"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:45
+#: addon\globalPlugins\beepKeyboard.py:44
 msgid ""
 "&Announce toggle keys changes (if Beep for toggle keys changes is disabled "
 "NVDA will have the original behavior)"

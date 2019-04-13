@@ -25,7 +25,6 @@ def _reportToggleKey(self):
 	else: tones.beep(1000,40)
 	if config.conf['beepKeyboard']['announceToggleStatus']: origReportToggleKey(self)
 
-
 class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 	# Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
 	title = _("Beep keyboard")
@@ -61,11 +60,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(BeepKeyboardSettingsPanel)
-		self.setExternalReportToggleStatus()
+		self.setExternalReportToggleStatus(config.conf['beepKeyboard']['beepToggleKeyChanges'])
 		if hasattr(config, "post_configProfileSwitch"):
-			config.post_configProfileSwitch.register(self.setExternalReportToggleStatus)
+			config.post_configProfileSwitch.register(self.handleConfigProfileSwitch)
 		else:
-			config.configProfileSwitched.register(self.setExternalReportToggleStatus)
+			config.configProfileSwitched.register(self.handleConfigProfileSwitch)
 
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
@@ -73,7 +72,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		or (config.conf['beepKeyboard']['beepCharacterWithShift'] and (winUser.getKeyState(winUser.VK_LSHIFT) &32768 or winUser.getKeyState(winUser.VK_RSHIFT) &32768))):
 			tones.beep(3000,40)
 
-	def setExternalReportToggleStatus(self):
-		if config.conf['beepKeyboard']['beepToggleKeyChanges']:
+	def setExternalReportToggleStatus(self, flag):
+		if flag:
 			keyboardHandler.KeyboardInputGesture._reportToggleKey = _reportToggleKey
 		else: keyboardHandler.KeyboardInputGesture._reportToggleKey = origReportToggleKey
+
+	def handleConfigProfileSwitch(self):
+		self.setExternalReportToggleStatus(config.conf['beepKeyboard']['beepToggleKeyChanges'])
+
+	def terminate(self):
+		super(GlobalPlugin, self).terminate()
+		self.setExternalReportToggleStatus(False)
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(BeepKeyboardSettingsPanel)
+		if hasattr(config, "post_configProfileSwitch"):
+			config.post_configProfileSwitch.unregister(self.handleConfigProfileSwitch)
+		else:
+			config.configProfileSwitched.unregister(self.handleConfigProfileSwitch)

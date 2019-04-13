@@ -3,7 +3,7 @@ This add-on allows the user to configure NVDA to beeps with some keyboard events
 
 Copyright (C) 2019 David CM <dhf360@gmail.com>
 
-This package is distributed under the terms of the GNU General Public License, version 2 or later. Please see the file COPYING.txt for further details.
+This package is distributed under the terms of the GNU General Public License, version 2 or later.
 
 ## Features
 
