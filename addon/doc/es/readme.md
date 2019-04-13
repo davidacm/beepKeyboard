@@ -13,4 +13,8 @@ Este complemento provee las siguientes características que puedes usar para ada
 * Anunciar el cambio de estado de las teclas interruptores: Solo para cuando "Pitar cuando cambia el estado de las teclas" está habilitado. Puedes habilitar o deshabilitar el anunciado de las teclas interruptores cuando estas cambian su estado.
 
 ## Requisitos
-usted necesita NVDA 2018.2 o posterior.
+Necesitarás NVDA 2018.2 o posterior.
+
+## 
+Instala este complemento como cualquier otro. para desactivar o activar características, ve  a las configuraciones de NVDA y selecciona la categoría beep keyboard. En esa categoría podrás habilitar o deshabilitar cualquier característica soportada por este complemento.
+"Pitar para mayúsculas cuando el bloqueo mayúsculas está activado" está habilitado por defecto.

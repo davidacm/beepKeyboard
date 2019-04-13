@@ -15,3 +15,13 @@ This add-on provides the following features you can use to adapt NVDA keyboard b
 
 ## Requirements
 You need NVDA 2018.2 or later.
+
+## Usage
+To enable or disable features, go to NVDA settings and select beep keyboard category. In that category you can configure all  supported features by this add-on.
+"Beep for uppercases  when caps lock is on" is enabled by default.
+
+## Packaging it for distribution
+Open a command line, change to the Add-on root folder  and run the scons command. The created add-on, if there were no errors, is placed in the root directory.
+
+## Notes
+* scons and gettext tools on this project are  compatible with python 3 only. Doesn't work with python 2.7.
