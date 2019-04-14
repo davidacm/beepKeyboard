@@ -54,7 +54,6 @@ class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 		else:
 			config.configProfileSwitched.notify()
 
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
@@ -68,9 +67,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
-		if ((config.conf['beepKeyboard']['beepUpperWithCapsLock'] and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper())
-		or (config.conf['beepKeyboard']['beepCharacterWithShift'] and (winUser.getKeyState(winUser.VK_LSHIFT) &32768 or winUser.getKeyState(winUser.VK_RSHIFT) &32768) and ch not in self.ignoredCharactersForShift and not (config.conf["keyboard"]["beepForLowercaseWithCapslock"] and ch.islower() and winUser.getKeyState(winUser.VK_CAPITAL)&1))):
+		if config.conf['beepKeyboard']['beepUpperWithCapsLock'] and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper():
 			tones.beep(3000,40)
+		elif config.conf['beepKeyboard']['beepCharacterWithShift'] and (winUser.getKeyState(winUser.VK_LSHIFT) &32768 or winUser.getKeyState(winUser.VK_RSHIFT) &32768) and ch not in self.ignoredCharactersForShift and not (config.conf["keyboard"]["beepForLowercaseWithCapslock"] and ch.islower() and winUser.getKeyState(winUser.VK_CAPITAL)&1):
+			tones.beep(6000, 10, 30, 30)
 
 	def setExternalReportToggleStatus(self, flag):
 		if flag:
