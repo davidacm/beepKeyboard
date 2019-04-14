@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 'beepKeyboard' '0.1b2'\n"
+"Project-Id-Version: 'beepKeyboard' '0.1b3'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2019-04-13 09:13-0600\n"
+"POT-Creation-Date: 2019-04-14 11:57-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,30 +20,94 @@ msgstr ""
 #. Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\beepKeyboard.py:30 buildVars.py:17
+#: addon\globalPlugins\beepKeyboard.py:41 buildVars.py:17
 msgid "Beep keyboard"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:35
+#: addon\globalPlugins\beepKeyboard.py:46
 msgid "Beep for uppercases  when &caps lock is on"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:38
+#: addon\globalPlugins\beepKeyboard.py:49
 msgid "Beep for typed characters when &shift is pressed"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:41
+#: addon\globalPlugins\beepKeyboard.py:52
 msgid "Beep for &toggle keys changes"
 msgstr ""
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:44
+#: addon\globalPlugins\beepKeyboard.py:55
 msgid ""
 "&Announce toggle keys changes (if Beep for toggle keys changes is disabled "
 "NVDA will have the original behavior)"
+msgstr ""
+
+#: addon\globalPlugins\beepKeyboard.py:58
+msgid "&Open advanced options"
+msgstr ""
+
+#. Translators: This is the label for the beep keyboard advanced settings dialog
+#: addon\globalPlugins\beepKeyboard.py:77
+msgid "Advanced settings - Keyboard beep"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:82
+msgid "Ignored characters with shift pressed"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:85
+msgid "beep always for the following characters"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:88
+msgid "shifted characters tone pitch"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:91
+msgid "shifted characters tone length"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:94
+msgid "shifted characters tone volume"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:97
+msgid "Custom characters tone pitch"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:100
+msgid "Custom characters tone length"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:103
+msgid "Custom characters tone volume"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:106
+msgid "Caps lock on typed characters tone pitch"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:109
+msgid "toggle off tone pitch"
+msgstr ""
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: addon\globalPlugins\beepKeyboard.py:112
+msgid "toggle on tone pitch"
 msgstr ""
 
 #. Add-on description
