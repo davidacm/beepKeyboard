@@ -22,9 +22,3 @@ Ce paquet est distribué sous les termes de la licence publique générale GNU, 
 ## Utilisation
   Pour activer ou désactiver des fonctionnalités, accédez aux paramètres NVDA et sélectionnez la catégorie beep keyboard. Dans cette catégorie, vous pouvez configurer toutes les fonctionnalités prises en charge par l'extension.  
   "Bip pour les majuscules quand le verrouillage majuscule est activé" est activé par défaut.
-
-## Empaquetage de l'extension pour sa distribution
-  Ouvrez une ligne de commande, changer le dossier racine de l'extension et exécutez la commande scons. L'extension créée, s'il n'y a pas d'erreur, sera placée dans le dossier racine de l'extension.
-
-## Notes:
-* Les outils scons et gettext sur ce projet sont uniquement compatibles avec  Python 3. Ils ne fonctionnent pas avec Python 2.7.

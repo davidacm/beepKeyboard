@@ -15,25 +15,25 @@ confspec = {
 	"announceToggleStatus": "boolean(default=True)",
 	"ignoredCharactersForShift": "string(default='\t\b\r ')",
 	"beepForCharacters": "string(default='')",
-	"shiftedCharactersPitch": "integer(default=6000)",
-	"shiftedCharactersLength": "integer(default=10)",
-	"shiftedCharactersVolume": "integer(default=25)",
-	"customCharactersPitch": "integer(default=6000)",
-	"customCharactersLength": "integer(default=10)",
-	"customCharactersVolume": "integer(default=25)",
-	"capsLockUpperPitch": "integer(default=3000)",
-	"toggleOffPitch": "integer(default=1000)",
-	"toggleOnPitch": "integer(default=2000)"
+	"shiftedCharactersTone": "int_list(default=list(6000,10,25))",
+	"customCharactersTone": "int_list(default=list(6000,10,25))",
+	"capsLockUpperTone": "int_list(default=list(3000,40,50))",
+	"toggleOffTone": "int_list(default=list(1000,40,50))",
+	"toggleOnTone": "int_list(default=list(2000, 40, 50))",
 }
 config.conf.spec["beepKeyboard"] = confspec
+
+def beep(l):
+	""" it receives a list with three arguments to beep: [pitch, length, volume]"""
+	tones.beep(*l, right=l[-1])
 
 #saves the original _reportToggleKey function
 origReportToggleKey = keyboardHandler.KeyboardInputGesture._reportToggleKey
 # alternate function to report state key.
 def _reportToggleKey(self):
 	if winUser.getKeyState(self.vkCode) & 1:
-		tones.beep(config.conf['beepKeyboard']['toggleOnPitch'], 40)
-	else: tones.beep(config.conf['beepKeyboard']['toggleOffPitch'], 40)
+		beep(config.conf['beepKeyboard']['toggleOnTone'])
+	else: beep(config.conf['beepKeyboard']['toggleOffTone'])
 	if config.conf['beepKeyboard']['announceToggleStatus']: origReportToggleKey(self)
 
 class BeepKeyboardSettingsPanel(gui.SettingsPanel):
@@ -54,9 +54,10 @@ class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 		# Translators: label for a checkbox option in the settings panel.
 		self.announceToggleStatus = sHelper.addItem(wx.CheckBox(self, label=_("&Announce toggle keys changes (if Beep for toggle keys changes is disabled NVDA will have the original behavior)")))
 		self.announceToggleStatus.SetValue(config.conf['beepKeyboard']['announceToggleStatus'])
-		
-		self.advancedButton = sHelper.addItem (wx.Button (self, label = _("&Open advanced options")))
-		self.advancedButton.Bind(wx.EVT_BUTTON, self.onAdvanced)
+
+		# Translators: label for a button to open advanced settings dialog in the settings panel.
+		advancedButton = sHelper.addItem (wx.Button (self, label = _("&Open advanced options")))
+		advancedButton.Bind(wx.EVT_BUTTON, self.onAdvanced)
 
 	def onAdvanced(self, evt):
 		advanced = AdvancedBeepKeyboardSettingsDialog(self, multiInstanceAllowed=True)
@@ -78,56 +79,72 @@ class AdvancedBeepKeyboardSettingsDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		co = config.conf['beepKeyboard']
 		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.ignoredCharactersForShift  = sHelper.addLabeledControl(_("Ignored characters with shift pressed"), wx.TextCtrl)
-		self.ignoredCharactersForShift.SetValue(config.conf['beepKeyboard']['ignoredCharactersForShift'])
+		self.ignoredCharactersForShift  = sHelper.addLabeledControl(_("&Ignored characters with shift pressed"), wx.TextCtrl)
+		self.ignoredCharactersForShift.SetValue(co['ignoredCharactersForShift'])
 		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.beepForCharacters  = sHelper.addLabeledControl(_("beep always for the following characters"), wx.TextCtrl)
-		self.beepForCharacters.SetValue(config.conf['beepKeyboard']['beepForCharacters'])
+		self.beepForCharacters  = sHelper.addLabeledControl(_("Beep &always for the following characters"), wx.TextCtrl)
+		self.beepForCharacters.SetValue(co['beepForCharacters'])
+		
+		self.tonesParameters = [co['shiftedCharactersTone'], co['customCharactersTone'], co['capsLockUpperTone'], co['toggleOffTone'], co['toggleOnTone']]
+		# Translators: label for a combo box control in the advanced settings dialog.
+		self.toneOptionsList = sHelper.addLabeledControl(_("&Select tone to configure"), wx.Choice, choices=[
+			# Translators: label for an option of a combo box control.
+			_("Typed characters with shift pressed"),
+			# Translators: label for an option of a combo box control.
+			_("Custom characters"),
+			# Translators: label for an option of a combo box control.
+			_("Typed characters when  caps lock is on"),
+			# Translators: label for an option of a combo box control.
+			_("Toggle key goes off"),
+			# Translators: label for an option of a combo box control.
+			_("Toggle key goes on")])
+		self.toneOptionsList.SetSelection(0)
+		self.curSelection=0
+		self.toneOptionsList.Bind(wx.EVT_CHOICE, self.onToneOptionChange)
 		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.shiftedCharactersPitch  = sHelper.addLabeledControl(_("shifted characters tone pitch"), wx.TextCtrl)
-		self.shiftedCharactersPitch.SetValue(str(config.conf['beepKeyboard']['shiftedCharactersPitch']))
+		self.tonePitch = sHelper.addLabeledControl(_("Tone &pitch"), wx.TextCtrl)
+		self.tonePitch.SetValue(str(self.tonesParameters[0][0]))
 		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.shiftedCharactersLength  = sHelper.addLabeledControl(_("shifted characters tone length"), wx.TextCtrl)
-		self.shiftedCharactersLength.SetValue(str(config.conf['beepKeyboard']['shiftedCharactersLength']))
+		self.toneLength = sHelper.addLabeledControl(_("Tone &length"), wx.TextCtrl)
+		self.toneLength.SetValue(str(self.tonesParameters[0][1]))
 		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.shiftedCharactersVolume  = sHelper.addLabeledControl(_("shifted characters tone volume"), wx.TextCtrl)
-		self.shiftedCharactersVolume.SetValue(str(config.conf['beepKeyboard']['shiftedCharactersVolume']))
-		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.customCharactersPitch  = sHelper.addLabeledControl(_("Custom characters tone pitch"), wx.TextCtrl)
-		self.customCharactersPitch.SetValue(str(config.conf['beepKeyboard']['customCharactersPitch']))
-		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.customCharactersLength  = sHelper.addLabeledControl(_("Custom characters tone length"), wx.TextCtrl)
-		self.customCharactersLength.SetValue(str(config.conf['beepKeyboard']['customCharactersLength']))
-		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.customCharactersVolume  = sHelper.addLabeledControl(_("Custom characters tone volume"), wx.TextCtrl)
-		self.customCharactersVolume.SetValue(str(config.conf['beepKeyboard']['customCharactersVolume']))
-		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.capsLockUpperPitch  = sHelper.addLabeledControl(_("Caps lock on typed characters tone pitch"), wx.TextCtrl)
-		self.capsLockUpperPitch.SetValue(str(config.conf['beepKeyboard']['capsLockUpperPitch']))
-		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.toggleOffPitch  = sHelper.addLabeledControl(_("toggle off tone pitch"), wx.TextCtrl)
-		self.toggleOffPitch.SetValue(str(config.conf['beepKeyboard']['toggleOffPitch']))
-		# Translators: label for an edit text control option in the advanced settings dialog.
-		self.toggleOnPitch  = sHelper.addLabeledControl(_("toggle on tone pitch"), wx.TextCtrl)
-		self.toggleOnPitch.SetValue(str(config.conf['beepKeyboard']['toggleOnPitch']))
+		self.toneVolume = sHelper.addLabeledControl(_("Tone &volume"), wx.TextCtrl)
+		self.toneVolume.SetValue(str(self.tonesParameters[0][2]))
+		# Translators: label for a button to play demo tone in advanced settings dialog.
+		testButton = sHelper.addItem (wx.Button (self, label = _("&Test tone")))
+		testButton.Bind(wx.EVT_BUTTON, self.onTest)
 
 	def postInit(self):
 		# ensure that focus is on the ignoredCharactersForShift
 		self.ignoredCharactersForShift.SetFocus()
 
+	def updateCurrentToneValues(self):
+		self.tonesParameters[self.curSelection] = [int(self.tonePitch.GetValue()), int(self.toneLength.GetValue()), int(self.toneVolume.GetValue())]
+
+	def onTest(self, evt):
+		self.updateCurrentToneValues()
+		beep(self.tonesParameters[self.curSelection])
+
+	def onToneOptionChange(self, evt):
+		self.updateCurrentToneValues()
+		self.curSelection = self.toneOptionsList.GetCurrentSelection()
+		co = self.tonesParameters[self.curSelection][0:3]
+		beep(co)
+		self.tonePitch.SetValue(str(co[0]))
+		self.toneLength.SetValue(str(co[1]))
+		self.toneVolume.SetValue(str(co[2]))
+
 	def onOk(self, evt):
 		config.conf['beepKeyboard']['ignoredCharactersForShift'] = self.ignoredCharactersForShift.GetValue()
 		config.conf['beepKeyboard']['beepForCharacters'] = self.beepForCharacters.GetValue()
-		config.conf['beepKeyboard']['shiftedCharactersPitch'] = self.shiftedCharactersPitch.GetValue()
-		config.conf['beepKeyboard']['shiftedCharactersLength'] = self.shiftedCharactersLength.GetValue()
-		config.conf['beepKeyboard']['shiftedCharactersVolume'] = self.shiftedCharactersVolume.GetValue()
-		config.conf['beepKeyboard']['customCharactersPitch'] = self.customCharactersPitch.GetValue()
-		config.conf['beepKeyboard']['"customCharactersLength'] = self.customCharactersLength.GetValue()
-		config.conf['beepKeyboard']['"customCharactersVolume'] = self.customCharactersVolume.GetValue()
-		config.conf['beepKeyboard']['capsLockUpperPitch'] = self.capsLockUpperPitch.GetValue()
-		config.conf['beepKeyboard']['toggleOffPitch'] = self.toggleOffPitch.GetValue()
-		config.conf['beepKeyboard']['toggleOnPitch'] = self.toggleOnPitch.GetValue()
+		self.updateCurrentToneValues()
+		config.conf['beepKeyboard']['shiftedCharactersTone'] = self.tonesParameters[0]
+		config.conf['beepKeyboard']['customCharactersTone'] = self.tonesParameters[1]
+		config.conf['beepKeyboard']['capsLockUpperTone'] = self.tonesParameters[2]
+		config.conf['beepKeyboard']['toggleOffTone'] = self.tonesParameters[3]
+		config.conf['beepKeyboard']['toggleOnTone'] = self.tonesParameters[4]
 		if hasattr(config, "post_configProfileSwitch"):
 			config.post_configProfileSwitch.notify()
 		else: config.configProfileSwitched.notify()
@@ -147,13 +164,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
 		if config.conf['beepKeyboard']['beepUpperWithCapsLock'] and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper():
-			tones.beep(config.conf['beepKeyboard']['capsLockUpperPitch'], 40)
+			beep(config.conf['beepKeyboard']['capsLockUpperTone'])
 		elif config.conf['beepKeyboard']['beepCharacterWithShift'] and not winUser.getKeyState(winUser.VK_CONTROL) &32768 and winUser.getKeyState(winUser.VK_SHIFT) &32768 and ch not in self.ignoredCharactersForShift and not (config.conf["keyboard"]["beepForLowercaseWithCapslock"] and ch.islower() and winUser.getKeyState(winUser.VK_CAPITAL)&1):
-			v = config.conf['beepKeyboard']['shiftedCharactersVolume']
-			tones.beep(config.conf['beepKeyboard']['shiftedCharactersPitch'], config.conf['beepKeyboard']['shiftedCharactersLength'], v, v)
+			beep(config.conf['beepKeyboard']['shiftedCharactersTone'])
 		elif ch in self.beepForCharacters:
-			v = config.conf['beepKeyboard']['customCharactersVolume']
-			tones.beep(config.conf['beepKeyboard']['customCharactersPitch'], config.conf['beepKeyboard']['customCharactersLength'], v, v)
+			beep(config.conf['beepKeyboard']['customCharactersTone'])
 
 	def setExternalReportToggleStatus(self, flag):
 		if flag:

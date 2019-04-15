@@ -12,6 +12,7 @@ This package is distributed under the terms of the GNU General Public License, v
 * Beep for typed characters when shift is pressed: with this feature NVDA will beep if you type a character with shift key pressed.
 * Beep for toggle keys changes: with this feature, NVDA will beep higher if a toggle key goes on, and lower tone if it goes off.
 * Announce toggle keys changes: just when "Beep for toggle keys changes" is on. You can enable or disable NVDA to announce toggle key status.
+* Beep for specified characters: NVDA will beep for all characters that you set in advanced settings.
 
 ## Requirements
   You need NVDA 2018.2 or later.
@@ -21,10 +22,14 @@ This package is distributed under the terms of the GNU General Public License, v
 
 ## Usage
   To enable or disable features, go to NVDA settings and select beep keyboard category. In that category you can configure all  supported features by this add-on.  
-  "Beep for uppercases  when caps lock is on" is enabled by default.
+  "Beep for uppercases  when caps lock is on" is enabled by default. 
+  If you need furter customizations, open the advanced settings dialog that contains the following settings:
 
-## Packaging it for distribution
-  Open a command line, change to the Add-on root folder  and run the scons command. The created add-on, if there were no errors, is placed in the root directory.
-
-## Notes
-* scons and gettext tools on this project are  compatible with python 3 only. Doesn't work with python 2.7.
+* Ignored characters with shift pressed: all characters here will be ignored to beeping when shift is pressed. Escape Sequences are allowed, e.g. "\t" for tab, "\r" for carriage return.
+* Beep always for the following characters: set here all characters that you want NVDA beeps for. Escape Sequences are allowed, e.g. "\t" for tab, "\r" for carriage return.
+* Select tone to configure: you can configure parameters for all tones. Select one here, and set the parameters in the next text boxes. NVDA will beep the current selected tone with the configured parameters.
+* Tone pitch: tone pitch for the current selected tone.
+* Tone length: tone length for the current selected tone.
+* Tone volume: tone volume for the current selected tone.
+* Test tone: this button lets you to play a test with the current set parameters.
+* Press OK button to save settings or cancel to discard.

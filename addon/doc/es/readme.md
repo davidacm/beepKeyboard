@@ -12,6 +12,7 @@ Este paquete es distribuido bajo los términos de la GNU General Public License,
 * Pitar para caracteres escritos cuando la tecla shift es presionada: con esta característica NVDA pitará si escribes un carácter con la tecla shift presionada.
 * Pitar cuando cambia el estado de las teclas interruptores: con esta característica, NVDA producirá un tono alto cuando el interructor se activa, y uno bajo si se desactiva.
 * Anunciar el cambio de estado de las teclas interruptores: Solo para cuando "Pitar cuando cambia el estado de las teclas" está habilitado. Puedes habilitar o deshabilitar el anunciado de las teclas interruptores cuando estas cambian su estado.
+* pitar para caracteres específicos: en las opciones avanzadas, puedes configurar NVDA para que emita un pitido con los caracteres que desees.
 
 ## Requisitos
   Necesitarás NVDA 2018.2 o posterior.
@@ -22,9 +23,3 @@ Este paquete es distribuido bajo los términos de la GNU General Public License,
 ## Uso
   Para desactivar o activar características, ve  a las configuraciones de NVDA y selecciona la categoría beep keyboard. En esa categoría podrás habilitar o deshabilitar cualquier característica soportada por este complemento.  
   "Pitar para mayúsculas cuando el bloqueo mayúsculas está activado" está habilitado por defecto.
-
-## Empaquetar el complemento para su distribución
-   Abra una línea de comandos, cambie al directorio raíz del complemento y ejecute el comando scons. El complemento creado, si no hay errores, será puesto en la carpeta raíz del complemento.
-
-## Notas:
-* Las herramientas scons y gettext de este proyecto son compatibles con python 3 únicamente. No funcionan en python 2.7
