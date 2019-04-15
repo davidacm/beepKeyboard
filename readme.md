@@ -13,7 +13,7 @@ This package is distributed under the terms of the GNU General Public License, v
 * Beep for toggle keys changes: with this feature, NVDA will beep higher if a toggle key goes on, and lower tone if it goes off. Please note that Windows has a toggle keis beep function built-in on Ease of Access Center. This native feature works well if you don't use laptop keyboard layout setting.
 * Announce toggle keys changes: just when "Beep for toggle keys changes" is on. You can enable or disable NVDA to announce toggle key status.
 * Beep for specified characters: NVDA will beep for all characters that you set in advanced settings.
-
+* You can disable beeping on password fields, this feature is enabled by default to aboid security risks. disable it if you want to hear beeps on password fields.
 ## Requirements
   You need NVDA 2018.2 or later.
 
