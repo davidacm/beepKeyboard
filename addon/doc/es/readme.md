@@ -12,7 +12,7 @@ Este paquete es distribuido bajo los términos de la GNU General Public License,
 * Pitar para caracteres escritos cuando la tecla shift es presionada: con esta característica NVDA pitará si escribes un carácter con la tecla shift presionada.
 * Pitar cuando cambia el estado de las teclas interruptores: con esta característica, NVDA producirá un tono alto cuando el interructor se activa, y uno bajo si se desactiva.
 * Anunciar el cambio de estado de las teclas interruptores: Solo para cuando "Pitar cuando cambia el estado de las teclas" está habilitado. Puedes habilitar o deshabilitar el anunciado de las teclas interruptores cuando estas cambian su estado.
-* pitar para caracteres específicos: en las opciones avanzadas, puedes configurar NVDA para que emita un pitido con los caracteres que desees.
+* Pitar para caracteres específicos: en las opciones avanzadas, puedes configurar NVDA para que emita un pitido con los caracteres que desees.
 
 ## Requisitos
   Necesitarás NVDA 2018.2 o posterior.
@@ -23,3 +23,13 @@ Este paquete es distribuido bajo los términos de la GNU General Public License,
 ## Uso
   Para desactivar o activar características, ve  a las configuraciones de NVDA y selecciona la categoría beep keyboard. En esa categoría podrás habilitar o deshabilitar cualquier característica soportada por este complemento.  
   "Pitar para mayúsculas cuando el bloqueo mayúsculas está activado" está habilitado por defecto.
+  Si necesitas ajustes adicionales, abra el cuadro de diálogo de las opciones avanzadas que contiene las siguientes opciones:
+
+* Ignorar caracteres escritos con la tecla shift presionada: todos los caracteres escritos aquí serán ignorados al emitir el pitido cuando la tecla shift sea presionada. Se permiten secuencias de escape, EJ. "\t" para tab, "\r" para la tecla enter.
+* Pitar siempre para los siguientes caracteres: ingrese aquí todos los caracteres escritos para los que quieras que NVDA emita un pitido. Se permiten secuencias  de escape, EJ. "\t" para tab, "\r" para la tecla enter.
+* Seleccionar un tono para su configuración: puedes configurar parámetros para todos los tonos. Selecciona uno aquí, y ajuste los parámetros en los siguientes cuadros de texto. Al cambiar de opción, NVDA emitirá el pitido del tono seleccionado con los parámetros configurados en ese momento.
+* Tono: tono para el tono seleccionado actualmente.
+* Duración: duración para el tono seleccionado actualmente.
+* Volumen: volumen para el tono seleccionado actualmente.
+* Probar el tono: este botón te permite reproducir un tono de prueba con los parámetros establecidos actualmente.
+* Presione el botón Aceptar para guardar las configuraciones o cancelar para descartarlas.

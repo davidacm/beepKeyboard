@@ -23,11 +23,11 @@ This package is distributed under the terms of the GNU General Public License, v
 ## Usage
   To enable or disable features, go to NVDA settings and select beep keyboard category. In that category you can configure all  supported features by this add-on.  
   "Beep for uppercases  when caps lock is on" is enabled by default. 
-  If you need furter customizations, open the advanced settings dialog that contains the following settings:
+  If you need more settings, open the advanced settings dialog that contains the following options:
 
 * Ignored characters with shift pressed: all characters here will be ignored to beeping when shift is pressed. Escape Sequences are allowed, e.g. "\t" for tab, "\r" for carriage return.
 * Beep always for the following characters: set here all characters that you want NVDA beeps for. Escape Sequences are allowed, e.g. "\t" for tab, "\r" for carriage return.
-* Select tone to configure: you can configure parameters for all tones. Select one here, and set the parameters in the next text boxes. NVDA will beep the current selected tone with the configured parameters.
+* Select tone to configure: you can configure parameters for all tones. Select one here, and set the parameters in the next text boxes. When change selection, NVDA will beep for the current selected tone with the current parameters set in the dialog.
 * Tone pitch: tone pitch for the current selected tone.
 * Tone length: tone length for the current selected tone.
 * Tone volume: tone volume for the current selected tone.

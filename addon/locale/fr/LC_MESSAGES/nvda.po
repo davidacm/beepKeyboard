@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 'beepKeyboard' '0.1b1'\n"
-"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2019-04-13 20:16+0200\n"
-"PO-Revision-Date: 2019-04-13 20:44+0200\n"
+"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"POT-Creation-Date: 2019-04-15 10:51+0200\n"
+"PO-Revision-Date: 2019-04-15 13:35+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -21,36 +21,106 @@ msgstr ""
 #. Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#: addon\globalPlugins\beepKeyboard.py:30 buildVars.py:17
+#: globalPlugins\beepKeyboard.py:41 buildVars.py:17
 msgid "Beep keyboard"
 msgstr "Beep keyboard"
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:35
+#: globalPlugins\beepKeyboard.py:46
 msgid "Beep for uppercases  when &caps lock is on"
 msgstr "Bip pour les majuscules quand le &verrouillage majuscule est activé"
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:38
+#: globalPlugins\beepKeyboard.py:49
 msgid "Beep for typed characters when &shift is pressed"
 msgstr "Bip pour les caractères saisis lorsque vous appuyez sur la touche &maj"
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:41
+#: globalPlugins\beepKeyboard.py:52
 msgid "Beep for &toggle keys changes"
 msgstr ""
-"Beep pendant le changement de l'état des &touches de l'interrupteur à bascule"
+"Bip pendant le changement de l'état des &touches de l'interrupteur à bascule"
 
 #. Translators: label for a checkbox option in the settings panel.
-#: addon\globalPlugins\beepKeyboard.py:44
+#: globalPlugins\beepKeyboard.py:55
 msgid ""
 "&Announce toggle keys changes (if Beep for toggle keys changes is disabled "
 "NVDA will have the original behavior)"
 msgstr ""
 "&Annoncer le changement de l'état des  touches de l'interrupteur à bascule "
-"(si l'option \"Beep pendant le changement de l'état des touches de "
+"(si l'option \"Bip pendant le changement de l'état des touches de "
 "l'interrupteur à bascule\" est désactivé, NVDA aura le comportement "
 "d'origine)"
+
+#. Translators: label for a button to open advanced settings dialog in the settings panel.
+#: globalPlugins\beepKeyboard.py:59
+msgid "&Open advanced options"
+msgstr "&Ouvrir les options avancées"
+
+#. Translators: This is the label for the beep keyboard advanced settings dialog
+#: globalPlugins\beepKeyboard.py:78
+msgid "Advanced settings - Keyboard beep"
+msgstr "Paramètres avancés - Keyboard beep"
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:84
+msgid "&Ignored characters with shift pressed"
+msgstr "&Ignorés les caractères saisis avec la touche maj enfoncée"
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:87
+msgid "Beep &always for the following characters"
+msgstr "Bip &toujours pour les caractères suivants"
+
+#. Translators: label for a combo box control in the advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:92
+msgid "&Select tone to configure"
+msgstr "&Choisir la tonalité à configurer"
+
+#. Translators: label for an option of a combo box control.
+#: globalPlugins\beepKeyboard.py:94
+msgid "Typed characters with shift pressed"
+msgstr "Caractères saisis avec la touche maj enfoncée"
+
+#. Translators: label for an option of a combo box control.
+#: globalPlugins\beepKeyboard.py:96
+msgid "Custom characters"
+msgstr "Caractères personnalisés"
+
+#. Translators: label for an option of a combo box control.
+#: globalPlugins\beepKeyboard.py:98
+msgid "Typed characters when  caps lock is on"
+msgstr "Caractères saisis quand le verrouillage majuscule est activé"
+
+#. Translators: label for an option of a combo box control.
+#: globalPlugins\beepKeyboard.py:100
+msgid "Toggle key goes off"
+msgstr "Désactivée une touche  de l'interrupteur à bascule"
+
+#. Translators: label for an option of a combo box control.
+#: globalPlugins\beepKeyboard.py:102
+msgid "Toggle key goes on"
+msgstr "Activée une touche  de l'interrupteur à bascule"
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:107
+msgid "Tone &pitch"
+msgstr "&Hauteur"
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:110
+msgid "Tone &length"
+msgstr "&Durée"
+
+#. Translators: label for an edit text control option in the advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:113
+msgid "Tone &volume"
+msgstr "&Volume"
+
+#. Translators: label for a button to play demo tone in advanced settings dialog.
+#: globalPlugins\beepKeyboard.py:116
+msgid "&Test tone"
+msgstr "&Tester la tonalité"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
