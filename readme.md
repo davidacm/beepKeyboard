@@ -10,7 +10,7 @@ This package is distributed under the terms of the GNU General Public License, v
 
 * Beep for uppercases  when caps lock is on: if this feature is enabled, NVDA will beep when you typing an uppercase and caps lock is on. Don't make any more uppercase mistakes!
 * Beep for typed characters when shift is pressed: with this feature NVDA will beep if you type a character with shift key pressed.
-* Beep for toggle keys changes: with this feature, NVDA will beep higher if a toggle key goes on, and lower tone if it goes off.
+* Beep for toggle keys changes: with this feature, NVDA will beep higher if a toggle key goes on, and lower tone if it goes off. Please note that Windows has a toggle keis beep function built-in on Ease of Access Center. This native feature works well if you don't use laptop keyboard layout setting.
 * Announce toggle keys changes: just when "Beep for toggle keys changes" is on. You can enable or disable NVDA to announce toggle key status.
 * Beep for specified characters: NVDA will beep for all characters that you set in advanced settings.
 
