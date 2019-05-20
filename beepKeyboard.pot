@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'beepKeyboard' '0.3a2'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
-"POT-Creation-Date: 2019-04-15 15:29-0600\n"
+"POT-Creation-Date: 2019-05-20 16:38-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,70 +57,71 @@ msgid "&Open advanced options"
 msgstr ""
 
 #. Translators: This is the label for the beep keyboard advanced settings dialog
-#: addon\globalPlugins\beepKeyboard.py:83
+#: addon\globalPlugins\beepKeyboard.py:82
 msgid "Advanced settings - Keyboard beep"
 msgstr ""
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:89
+#: addon\globalPlugins\beepKeyboard.py:88
 msgid "&Ignored characters with shift pressed"
 msgstr ""
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:92
+#: addon\globalPlugins\beepKeyboard.py:91
 msgid "Beep &always for the following characters"
 msgstr ""
 
 #. Translators: label for a combo box control in the advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:96
+#: addon\globalPlugins\beepKeyboard.py:95
 msgid "&Select tone to configure"
 msgstr ""
 
 #. Translators: label for an option of a combo box control.
-#: addon\globalPlugins\beepKeyboard.py:98
+#: addon\globalPlugins\beepKeyboard.py:97
 msgid "Typed characters with shift pressed"
 msgstr ""
 
 #. Translators: label for an option of a combo box control.
-#: addon\globalPlugins\beepKeyboard.py:100
+#: addon\globalPlugins\beepKeyboard.py:99
 msgid "Custom characters"
 msgstr ""
 
 #. Translators: label for an option of a combo box control.
-#: addon\globalPlugins\beepKeyboard.py:102
+#: addon\globalPlugins\beepKeyboard.py:101
 msgid "Typed characters when  caps lock is on"
 msgstr ""
 
 #. Translators: label for an option of a combo box control.
-#: addon\globalPlugins\beepKeyboard.py:104
+#: addon\globalPlugins\beepKeyboard.py:103
 msgid "Toggle key goes off"
 msgstr ""
 
 #. Translators: label for an option of a combo box control.
-#: addon\globalPlugins\beepKeyboard.py:106
+#: addon\globalPlugins\beepKeyboard.py:105
 msgid "Toggle key goes on"
 msgstr ""
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:111
+#: addon\globalPlugins\beepKeyboard.py:110
 msgid "Tone &pitch"
 msgstr ""
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:114
+#: addon\globalPlugins\beepKeyboard.py:113
 msgid "Tone &length"
 msgstr ""
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:117
+#: addon\globalPlugins\beepKeyboard.py:116
 msgid "Tone &volume"
 msgstr ""
 
 #. Translators: label for a button to play demo tone in advanced settings dialog.
-#: addon\globalPlugins\beepKeyboard.py:120
+#: addon\globalPlugins\beepKeyboard.py:119
 msgid "&Test tone"
 msgstr ""
 
+#. Translators: an error message sent to ve spoken by NVDA.
 #: addon\globalPlugins\beepKeyboard.py:134
 msgid "You entered a wrong value. Please correct it or discard changes."
 msgstr ""
