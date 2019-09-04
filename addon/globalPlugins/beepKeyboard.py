@@ -73,9 +73,7 @@ class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 		config.conf['beepKeyboard']['beepToggleKeyChanges'] = self.beepToggleKeyChanges.GetValue()
 		config.conf['beepKeyboard']['announceToggleStatus'] = self.announceToggleStatus.GetValue()
 		config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] = self.disableBeepingOnPasswordFields.GetValue()
-		if hasattr(config, "post_configProfileSwitch"):
-			config.post_configProfileSwitch.notify()
-		else: config.configProfileSwitched.notify()
+		config.post_configProfileSwitch.notify()
 
 class AdvancedBeepKeyboardSettingsDialog(gui.SettingsDialog):
 	# Translators: This is the label for the beep keyboard advanced settings dialog
@@ -156,9 +154,7 @@ class AdvancedBeepKeyboardSettingsDialog(gui.SettingsDialog):
 		config.conf['beepKeyboard']['ignoredCharactersForShift'] = self.ignoredCharactersForShift.GetValue()
 		config.conf['beepKeyboard']['beepForCharacters'] = self.beepForCharacters.GetValue()
 		config.conf['beepKeyboard']['shiftedCharactersTone'], config.conf['beepKeyboard']['customCharactersTone'], config.conf['beepKeyboard']['capsLockUpperTone'], config.conf['beepKeyboard']['toggleOffTone'], config.conf['beepKeyboard']['toggleOnTone'] = self.tonesParameters
-		if hasattr(config, "post_configProfileSwitch"):
-			config.post_configProfileSwitch.notify()
-		else: config.configProfileSwitched.notify()
+		config.post_configProfileSwitch.notify()
 		super(AdvancedBeepKeyboardSettingsDialog, self).onOk(evt)
 
 
@@ -167,10 +163,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		self.handleConfigProfileSwitch()
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(BeepKeyboardSettingsPanel)
-		if hasattr(config, "post_configProfileSwitch"):
-			config.post_configProfileSwitch.register(self.handleConfigProfileSwitch)
-		else:
-			config.configProfileSwitched.register(self.handleConfigProfileSwitch)
+		config.post_configProfileSwitch.register(self.handleConfigProfileSwitch)
 
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
@@ -194,7 +187,4 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).terminate()
 		self.setExternalReportToggleStatus(False)
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(BeepKeyboardSettingsPanel)
-		if hasattr(config, "post_configProfileSwitch"):
-			config.post_configProfileSwitch.unregister(self.handleConfigProfileSwitch)
-		else:
-			config.configProfileSwitched.unregister(self.handleConfigProfileSwitch)
+		config.post_configProfileSwitch.unregister(self.handleConfigProfileSwitch)
