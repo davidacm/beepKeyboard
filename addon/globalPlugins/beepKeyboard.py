@@ -5,9 +5,10 @@
 # Released under GPL 2
 #globalPlugins/beepKeyboard.py
 
-import api, codecs, config, globalPluginHandler, gui, keyboardHandler, tones, ui, winUser, wx, addonHandler
+import api, codecs, config, globalPluginHandler, gui, keyboardHandler, tones, ui, winreg, winUser, wx, addonHandler
 addonHandler.initTranslation()
 
+# config schema
 confspec = {
 	"beepUpperWithCapsLock": "boolean(default=True)",
 	"beepCharacterWithShift": "boolean(default=False)",
@@ -19,23 +20,36 @@ confspec = {
 	"shiftedCharactersTone": "int_list(default=list(6000,10,25))",
 	"customCharactersTone": "int_list(default=list(6000,10,25))",
 	"capsLockUpperTone": "int_list(default=list(3000,40,50))",
-	"toggleOffTone": "int_list(default=list(1000,40,50))",
+	"toggleOffTone": "int_list(default=list(500,40,50))",
 	"toggleOnTone": "int_list(default=list(2000, 40, 50))"
 }
 config.conf.spec["beepKeyboard"] = confspec
 
+# Constants.
+REG_TOGGLE_KEYS = r"Control Panel\Accessibility\ToggleKeys"
+REG_KEY = "Flags"
+REG_VALUE_ON = 63
+
+# global variables
+ignoreToggleKeys = False
+
 def beep(l):
 	""" it receives a list with three arguments to beep: [pitch, length, volume]"""
-	if not (config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] and api.getFocusObject().isProtected): tones.beep(*l, right=l[-1])
+	if not (config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] and api.getFocusObject().isProtected):
+		tones.beep(*l, right=l[-1])
 
 #saves the original _reportToggleKey function
 origReportToggleKey = keyboardHandler.KeyboardInputGesture._reportToggleKey
+
 # alternate function to report state key.
 def _reportToggleKey(self):
-	if winUser.getKeyState(self.vkCode) & 1:
-		beep(config.conf['beepKeyboard']['toggleOnTone'])
-	else: beep(config.conf['beepKeyboard']['toggleOffTone'])
-	if config.conf['beepKeyboard']['announceToggleStatus'] or (config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] and api.getFocusObject().isProtected): origReportToggleKey(self)
+	global ignoreToggleKeys
+	if not ignoreToggleKeys:
+		if winUser.getKeyState(self.vkCode) & 1:
+			beep(config.conf['beepKeyboard']['toggleOnTone'])
+		else: beep(config.conf['beepKeyboard']['toggleOffTone'])
+	if ignoreToggleKeys or config.conf['beepKeyboard']['announceToggleStatus'] or (config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] and api.getFocusObject().isProtected):
+		origReportToggleKey(self)
 
 class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 	# Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
@@ -165,6 +179,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(BeepKeyboardSettingsPanel)
 		config.post_configProfileSwitch.register(self.handleConfigProfileSwitch)
 
+	def checkEaseAccessToggleKeys(self):
+		global ignoreToggleKeys
+		# disables sounds for toggle keys if native system toggle keys is enabled.
+		try:
+			r = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_TOGGLE_KEYS, 0, winreg.KEY_READ)
+			v, _ = winreg.QueryValueEx(r, REG_KEY)
+			if int(v) == REG_VALUE_ON: ignoreToggleKeys = True
+			else: ignoreToggleKeys = False
+		except:
+			ignoreToggleKeys = False
+
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
 		if config.conf['beepKeyboard']['beepUpperWithCapsLock'] and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper():
@@ -174,9 +199,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif ch in self.beepForCharacters: beep(config.conf['beepKeyboard']['customCharactersTone'])
 
 	def setExternalReportToggleStatus(self, flag):
+		global ignoreToggleKeys
 		if flag:
-			keyboardHandler.KeyboardInputGesture._reportToggleKey = _reportToggleKey
-		else: keyboardHandler.KeyboardInputGesture._reportToggleKey = origReportToggleKey
+			self.checkEaseAccessToggleKeys()
+			if not ignoreToggleKeys:
+				keyboardHandler.KeyboardInputGesture._reportToggleKey = _reportToggleKey
+				return
+		keyboardHandler.KeyboardInputGesture._reportToggleKey = origReportToggleKey
 
 	def handleConfigProfileSwitch(self):
 		self.setExternalReportToggleStatus(config.conf['beepKeyboard']['beepToggleKeyChanges'])
