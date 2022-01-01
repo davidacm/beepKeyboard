@@ -19,7 +19,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("""This add-on beeps with some keyboard events."""),
 	# version
-	"addon_version" : "1.7-dev",
+	"addon_version" : ,
 	# Author(s)
 	"addon_author" : u"David CM <dhf360@gmail.com>",
 	# URL for the add-on documentation support
