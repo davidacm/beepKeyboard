@@ -34,8 +34,17 @@ This package is distributed under the terms of the GNU General Public License, v
 * Test tone: this button lets you to play a test with the current set parameters.
 * Press OK button to save settings or cancel to discard.
 
-## Issues and suggestions reports.
-  Please report your issues and suggestions on the github repository of this project:
+## contributions, reports and donations
+
+If you like my project or this software is useful for you in your daily life and you would like to contribute in some way, you can donate via the following methods:
+
+* [PayPal.](https://paypal.me/davicm)
+* [Ko-fi.](https://ko-fi.com/davidacm)
+* [cryptocurrencies and other methods.](https://davidacm.github.io/donations/)
+
+If you want to fix bugs, report problems or new features, you can contact me at: <dhf360@gmail.com>.
+
+  Or in the github repository of this project:
   [Beep keyboard on GitHub](https://github.com/davidacm/beepKeyboard)
 
-    You can get the latest release in that repository.
+    You can get the latest release of this add-on in that repository.

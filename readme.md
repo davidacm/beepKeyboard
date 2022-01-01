@@ -8,12 +8,14 @@ This package is distributed under the terms of the GNU General Public License, v
 ## Download.
  The latest release is available to [download in this link](https://davidacm.github.io/getlatest/gh/davidacm/beepKeyboard)
 
-# Contributing to this project.
+# Contributing with the project.
 ### Donations.
-  If you like my project or this software is useful for you in your daily life and you would like to contribute in some way, you can donate via paypal in the
-  [donate link.](https://paypal.me/davicm)
+  If you like my project or this software is useful for you in your daily life and you would like to contribute in some way, you can donate via the following methods.
+  
+* [PayPal.](https://paypal.me/davicm)
+* [Ko-fi.](https://ko-fi.com/davidacm)
+* [cryptocurrencies and other methods.](https://davidacm.github.io/donations/)
 
-  let me know if you want to write a message or promote a link in the collaboration section.
 
 ### fixing bugs and new features.
   If you want to fix a bug or add new feature, You will need to fork this repository.
