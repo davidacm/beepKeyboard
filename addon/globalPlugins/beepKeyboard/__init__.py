@@ -1,29 +1,34 @@
 # -*- coding: UTF-8 -*-
 # Beep keyboard: This add-on beeps with some keyboard events.
-# Copyright (C) 2019 David CM
+# Copyright (C) 2019 - 2022 David CM
 # Author: David CM <dhf360@gmail.com>
 # Released under GPL 2
 #globalPlugins/beepKeyboard.py
 
 import api, codecs, config, globalPluginHandler, gui, keyboardHandler, tones, ui, winreg, winUser, wx, addonHandler
+
 addonHandler.initTranslation()
 
-# config schema
-confspec = {
-	"beepUpperWithCapsLock": "boolean(default=True)",
-	"beepCharacterWithShift": "boolean(default=False)",
-	"beepToggleKeyChanges": "boolean(default=False)",
-	"announceToggleStatus": "boolean(default=True)",
-	"disableBeepingOnPasswordFields": "boolean(default=True)",
-	"ignoredCharactersForShift": "string(default='\\x1b\\t\\b\\r ')",
-	"beepForCharacters": "string(default='')",
-	"shiftedCharactersTone": "int_list(default=list(6000,10,25))",
-	"customCharactersTone": "int_list(default=list(6000,10,25))",
-	"capsLockUpperTone": "int_list(default=list(3000,40,50))",
-	"toggleOffTone": "int_list(default=list(500,40,50))",
-	"toggleOnTone": "int_list(default=list(2000, 40, 50))"
-}
-config.conf.spec["beepKeyboard"] = confspec
+
+from ._configHelper import *
+class AppConfig(BaseConfig):
+	def __init__(self):
+		super().__init__('beepKeyboard')
+
+	beepUpperWithCapsLock = OptConfig('boolean(default=True)')
+	beepCharacterWithShift = OptConfig('boolean(default=False)')
+	beepToggleKeyChanges = OptConfig('boolean(default=False)')
+	announceToggleStatus = OptConfig('boolean(default=True)')
+	disableBeepingOnPasswordFields = OptConfig('boolean(default=True)')
+	ignoredCharactersForShift = OptConfig("string(default='\\x1b\\t\\b\\r ')")
+	beepForCharacters = OptConfig("string(default='')")
+	shiftedCharactersTone = OptConfig('int_list(default=list(6000,10,25))')
+	customCharactersTone = OptConfig('int_list(default=list(6000,10,25))')
+	capsLockUpperTone = OptConfig('int_list(default=list(3000,40,50))')
+	toggleOffTone = OptConfig('int_list(default=list(500,40,50))')
+	toggleOnTone = OptConfig('int_list(default=list(2000, 40, 50))')
+AF = registerConfig(AppConfig)
+
 
 # Constants.
 REG_TOGGLE_KEYS = r"Control Panel\Accessibility\ToggleKeys"
@@ -35,7 +40,7 @@ ignoreToggleKeys = False
 
 def beep(l):
 	""" it receives a list with three arguments to beep: [pitch, length, volume]"""
-	if not (config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] and api.getFocusObject().isProtected):
+	if not (AF.disableBeepingOnPasswordFields and api.getFocusObject().isProtected):
 		tones.beep(*l, right=l[-1])
 
 #saves the original _reportToggleKey function
@@ -46,9 +51,9 @@ def _reportToggleKey(self):
 	global ignoreToggleKeys
 	if not ignoreToggleKeys:
 		if winUser.getKeyState(self.vkCode) & 1:
-			beep(config.conf['beepKeyboard']['toggleOnTone'])
-		else: beep(config.conf['beepKeyboard']['toggleOffTone'])
-	if ignoreToggleKeys or config.conf['beepKeyboard']['announceToggleStatus'] or (config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] and api.getFocusObject().isProtected):
+			beep(AF.toggleOnTone)
+		else: beep(AF.toggleOffTone)
+	if ignoreToggleKeys or AF.announceToggleStatus or (AF.disableBeepingOnPasswordFields and api.getFocusObject().isProtected):
 		origReportToggleKey(self)
 
 class BeepKeyboardSettingsPanel(gui.SettingsPanel):
@@ -59,19 +64,19 @@ class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Translators: label for a checkbox option in the settings panel.
 		self.beepUpperWithCapsLock = sHelper.addItem(wx.CheckBox(self, label=_("Beep for uppercases  when &caps lock is on")))
-		self.beepUpperWithCapsLock.SetValue(config.conf['beepKeyboard']['beepUpperWithCapsLock'])
+		self.beepUpperWithCapsLock.SetValue(AF.beepUpperWithCapsLock)
 		# Translators: label for a checkbox option in the settings panel.
 		self.beepCharacterWithShift = sHelper.addItem(wx.CheckBox(self, label=_("Beep for typed characters when &shift is pressed")))
-		self.beepCharacterWithShift.SetValue(config.conf['beepKeyboard']['beepCharacterWithShift'])
+		self.beepCharacterWithShift.SetValue(AF.beepCharacterWithShift)
 		# Translators: label for a checkbox option in the settings panel.
 		self.beepToggleKeyChanges = sHelper.addItem(wx.CheckBox(self, label=_("Beep for &toggle keys changes")))
-		self.beepToggleKeyChanges.SetValue(config.conf['beepKeyboard']['beepToggleKeyChanges'])
+		self.beepToggleKeyChanges.SetValue(AF.beepToggleKeyChanges)
 		# Translators: label for a checkbox option in the settings panel.
 		self.announceToggleStatus = sHelper.addItem(wx.CheckBox(self, label=_("&Announce toggle keys changes (if Beep for toggle keys changes is disabled NVDA will have the original behavior)")))
-		self.announceToggleStatus.SetValue(config.conf['beepKeyboard']['announceToggleStatus'])
+		self.announceToggleStatus.SetValue(AF.announceToggleStatus)
 		# Translators: label for a checkbox option in the settings panel.
 		self.disableBeepingOnPasswordFields = sHelper.addItem(wx.CheckBox(self, label=_("&disable beeping on password fields")))
-		self.disableBeepingOnPasswordFields.SetValue(config.conf['beepKeyboard']['disableBeepingOnPasswordFields'])
+		self.disableBeepingOnPasswordFields.SetValue(AF.disableBeepingOnPasswordFields)
 
 		# Translators: label for a button to open advanced settings dialog in the settings panel.
 		advancedButton = sHelper.addItem (wx.Button (self, label = _("&Open advanced options")))
@@ -82,11 +87,11 @@ class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 		advanced.ShowModal()
 
 	def onSave(self):
-		config.conf['beepKeyboard']['beepUpperWithCapsLock'] = self.beepUpperWithCapsLock.GetValue()
-		config.conf['beepKeyboard']['beepCharacterWithShift'] = self.beepCharacterWithShift.GetValue()
-		config.conf['beepKeyboard']['beepToggleKeyChanges'] = self.beepToggleKeyChanges.GetValue()
-		config.conf['beepKeyboard']['announceToggleStatus'] = self.announceToggleStatus.GetValue()
-		config.conf['beepKeyboard']['disableBeepingOnPasswordFields'] = self.disableBeepingOnPasswordFields.GetValue()
+		AF.beepUpperWithCapsLock = self.beepUpperWithCapsLock.GetValue()
+		AF.beepCharacterWithShift = self.beepCharacterWithShift.GetValue()
+		AF.beepToggleKeyChanges = self.beepToggleKeyChanges.GetValue()
+		AF.announceToggleStatus = self.announceToggleStatus.GetValue()
+		AF.disableBeepingOnPasswordFields = self.disableBeepingOnPasswordFields.GetValue()
 		config.post_configProfileSwitch.notify()
 
 class AdvancedBeepKeyboardSettingsDialog(gui.SettingsDialog):
@@ -95,14 +100,13 @@ class AdvancedBeepKeyboardSettingsDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		co = config.conf['beepKeyboard']
 		# Translators: label for an edit text control option in the advanced settings dialog.
 		self.ignoredCharactersForShift  = sHelper.addLabeledControl(_("&Ignored characters with shift pressed"), wx.TextCtrl)
-		self.ignoredCharactersForShift.SetValue(co['ignoredCharactersForShift'])
+		self.ignoredCharactersForShift.SetValue(AF.ignoredCharactersForShift)
 		# Translators: label for an edit text control option in the advanced settings dialog.
 		self.beepForCharacters  = sHelper.addLabeledControl(_("Beep &always for the following characters"), wx.TextCtrl)
-		self.beepForCharacters.SetValue(co['beepForCharacters'])		
-		self.tonesParameters = [co['shiftedCharactersTone'], co['customCharactersTone'], co['capsLockUpperTone'], co['toggleOffTone'], co['toggleOnTone']]
+		self.beepForCharacters.SetValue(AF.beepForCharacters)		
+		self.tonesParameters = [AF.shiftedCharactersTone, AF.customCharactersTone, AF.capsLockUpperTone, AF.toggleOffTone, AF.toggleOnTone]
 		# Translators: label for a combo box control in the advanced settings dialog.
 		self.toneOptionsList = sHelper.addLabeledControl(_("&Select tone to configure"), wx.Choice, choices=[
 			# Translators: label for an option of a combo box control.
@@ -165,9 +169,9 @@ class AdvancedBeepKeyboardSettingsDialog(gui.SettingsDialog):
 
 	def onOk(self, evt):
 		self.updateCurrentToneValues()
-		config.conf['beepKeyboard']['ignoredCharactersForShift'] = self.ignoredCharactersForShift.GetValue()
-		config.conf['beepKeyboard']['beepForCharacters'] = self.beepForCharacters.GetValue()
-		config.conf['beepKeyboard']['shiftedCharactersTone'], config.conf['beepKeyboard']['customCharactersTone'], config.conf['beepKeyboard']['capsLockUpperTone'], config.conf['beepKeyboard']['toggleOffTone'], config.conf['beepKeyboard']['toggleOnTone'] = self.tonesParameters
+		AF.ignoredCharactersForShift = self.ignoredCharactersForShift.GetValue()
+		AF.beepForCharacters = self.beepForCharacters.GetValue()
+		AF.shiftedCharactersTone, AF.customCharactersTone, AF.capsLockUpperTone, AF.toggleOffTone, AF.toggleOnTone = self.tonesParameters
 		config.post_configProfileSwitch.notify()
 		super(AdvancedBeepKeyboardSettingsDialog, self).onOk(evt)
 
@@ -192,11 +196,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
-		if config.conf['beepKeyboard']['beepUpperWithCapsLock'] and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper():
-			beep(config.conf['beepKeyboard']['capsLockUpperTone'])
-		elif config.conf['beepKeyboard']['beepCharacterWithShift'] and not winUser.getKeyState(winUser.VK_CONTROL) &32768 and winUser.getKeyState(winUser.VK_SHIFT) &32768 and ch not in self.ignoredCharactersForShift and not (config.conf["keyboard"]["beepForLowercaseWithCapslock"] and ch.islower() and winUser.getKeyState(winUser.VK_CAPITAL)&1):
-			beep(config.conf['beepKeyboard']['shiftedCharactersTone'])
-		elif ch in self.beepForCharacters: beep(config.conf['beepKeyboard']['customCharactersTone'])
+		if AF.beepUpperWithCapsLock and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper():
+			beep(AF.capsLockUpperTone)
+		elif AF.beepCharacterWithShift and not winUser.getKeyState(winUser.VK_CONTROL) &32768 and winUser.getKeyState(winUser.VK_SHIFT) &32768 and ch not in self.ignoredCharactersForShift and not (config.conf["keyboard"]["beepForLowercaseWithCapslock"] and ch.islower() and winUser.getKeyState(winUser.VK_CAPITAL)&1):
+			beep(AF.shiftedCharactersTone)
+		elif ch in self.beepForCharacters: beep(AF.customCharactersTone)
 
 	def setExternalReportToggleStatus(self, flag):
 		global ignoreToggleKeys
@@ -208,9 +212,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		keyboardHandler.KeyboardInputGesture._reportToggleKey = origReportToggleKey
 
 	def handleConfigProfileSwitch(self):
-		self.setExternalReportToggleStatus(config.conf['beepKeyboard']['beepToggleKeyChanges'])
-		self.ignoredCharactersForShift = codecs.decode(config.conf['beepKeyboard']['ignoredCharactersForShift'], 'unicode_escape')
-		self.beepForCharacters = codecs.decode(config.conf['beepKeyboard']['beepForCharacters'], 'unicode_escape')
+		self.setExternalReportToggleStatus(AF.beepToggleKeyChanges)
+		self.ignoredCharactersForShift = codecs.decode(AF.ignoredCharactersForShift, 'unicode_escape')
+		self.beepForCharacters = codecs.decode(AF.beepForCharacters, 'unicode_escape')
 
 	def terminate(self):
 		super(GlobalPlugin, self).terminate()
