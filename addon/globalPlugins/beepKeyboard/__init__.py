@@ -12,8 +12,7 @@ addonHandler.initTranslation()
 
 from ._configHelper import *
 class AppConfig(BaseConfig):
-	def __init__(self):
-		super().__init__('beepKeyboard')
+	path = 'beepKeyboard'
 
 	beepUpperWithCapsLock = OptConfig('boolean(default=True)')
 	beepCharacterWithShift = OptConfig('boolean(default=False)')
