@@ -10,22 +10,22 @@ import api, codecs, config, globalPluginHandler, gui, keyboardHandler, tones, ui
 addonHandler.initTranslation()
 
 
-from ._configHelper import *
-class AppConfig(BaseConfig):
-	path = 'beepKeyboard'
-
-	beepUpperWithCapsLock = OptConfig('boolean(default=True)')
-	beepCharacterWithShift = OptConfig('boolean(default=False)')
-	beepToggleKeyChanges = OptConfig('boolean(default=False)')
-	announceToggleStatus = OptConfig('boolean(default=True)')
-	disableBeepingOnPasswordFields = OptConfig('boolean(default=True)')
-	ignoredCharactersForShift = OptConfig("string(default='\\x1b\\t\\b\\r ')")
-	beepForCharacters = OptConfig("string(default='')")
-	shiftedCharactersTone = OptConfig('int_list(default=list(6000,10,25))')
-	customCharactersTone = OptConfig('int_list(default=list(6000,10,25))')
-	capsLockUpperTone = OptConfig('int_list(default=list(3000,40,50))')
-	toggleOffTone = OptConfig('int_list(default=list(500,40,50))')
-	toggleOnTone = OptConfig('int_list(default=list(2000, 40, 50))')
+from ._configHelper import configSpec, registerConfig
+@configSpec
+class AppConfig:
+	__path__ = 'beepKeyboard'
+	beepUpperWithCapsLock = 'boolean(default=True)'
+	beepCharacterWithShift = 'boolean(default=False)'
+	beepToggleKeyChanges = 'boolean(default=False)'
+	announceToggleStatus = 'boolean(default=True)'
+	disableBeepingOnPasswordFields = 'boolean(default=True)'
+	ignoredCharactersForShift = "string(default='\\x1b\\t\\b\\r ')"
+	beepForCharacters = "string(default='')"
+	shiftedCharactersTone = 'int_list(default=list(6000,10,25))'
+	customCharactersTone = 'int_list(default=list(6000,10,25))'
+	capsLockUpperTone = 'int_list(default=list(3000,40,50))'
+	toggleOffTone = 'int_list(default=list(500,40,50))'
+	toggleOnTone = 'int_list(default=list(2000, 40, 50))'
 AF = registerConfig(AppConfig)
 
 
