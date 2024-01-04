@@ -6,11 +6,10 @@
 #globalPlugins/beepKeyboard.py
 
 import api, codecs, config, globalPluginHandler, gui, keyboardHandler, tones, ui, winreg, winUser, wx, addonHandler
-
+from .beepKeyboardUtils import configSpec, registerConfig, showDonationsDialog
 addonHandler.initTranslation()
 
 
-from ._configHelper import configSpec, registerConfig
 @configSpec('beepKeyboard')
 class AppConfig:
 	beepUpperWithCapsLock = 'boolean(default=True)'
@@ -54,7 +53,24 @@ def _reportToggleKey(self):
 	if ignoreToggleKeys or AF.announceToggleStatus or (AF.disableBeepingOnPasswordFields and api.getFocusObject().isProtected):
 		origReportToggleKey(self)
 
-class BeepKeyboardSettingsPanel(gui.SettingsPanel):
+
+DONATE_METHODS = (
+	{
+		'label': _('Using Paypal'),
+		'url': 'https://paypal.me/davicm'
+	},
+	{
+		'label': _('using Co-fi'),
+		'url': 'https://ko-fi.com/davidacm'
+	},
+	{
+		'label': _('See more methods on my github Page'),
+		'url': 'https://davidacm.github.io/donations/'
+	}
+)
+
+
+class BeepKeyboardSettingsPanel(gui.settingsDialogs.SettingsPanel):
 	# Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
 	title = _("Beep keyboard")
 
@@ -79,6 +95,8 @@ class BeepKeyboardSettingsPanel(gui.SettingsPanel):
 		# Translators: label for a button to open advanced settings dialog in the settings panel.
 		advancedButton = sHelper.addItem (wx.Button (self, label = _("&Open advanced options")))
 		advancedButton.Bind(wx.EVT_BUTTON, self.onAdvanced)
+		donateButton = sHelper.addItem(wx.Button(self, label=_("&Support beep keyboard add-on")))
+		donateButton.Bind(wx.EVT_BUTTON, lambda e: showDonationsDialog(self, "Beep Keyboard", DONATE_METHODS))
 
 	def onAdvanced(self, evt):
 		advanced = AdvancedBeepKeyboardSettingsDialog(self, multiInstanceAllowed=True)

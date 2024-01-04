@@ -9,25 +9,26 @@ msgstr ""
 "Project-Id-Version: 'beepKeyboard' '1.8'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-01-04 14:35-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2024-01-04 14:45-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: addon\globalPlugins\beepKeyboard\__init__.py:59
 msgid "Using Paypal"
-msgstr ""
+msgstr "Usando Paypal"
 
 #: addon\globalPlugins\beepKeyboard\__init__.py:63
 msgid "using Co-fi"
-msgstr ""
+msgstr "usando co-fi"
 
 #: addon\globalPlugins\beepKeyboard\__init__.py:67
 msgid "See more methods on my github Page"
-msgstr ""
+msgstr "Ver más métodos en mi página de github"
 
 #. Translators: This is the label for the beepKeyboard  settings category in NVDA Settings screen.
 #. Add-on summary, usually the user visible name of the addon.
@@ -40,16 +41,18 @@ msgstr ""
 #: addon\globalPlugins\beepKeyboard\__init__.py:80
 msgid "Beep for uppercases  when &caps lock is on"
 msgstr ""
+"Pitar para las mayúsculas cuando el bloqueo de mayúsculas está activado"
 
 #. Translators: label for a checkbox option in the settings panel.
 #: addon\globalPlugins\beepKeyboard\__init__.py:83
 msgid "Beep for typed characters when &shift is pressed"
-msgstr ""
+msgstr "Pitar con los caracteres escritos cuando &shift está presionado"
 
 #. Translators: label for a checkbox option in the settings panel.
 #: addon\globalPlugins\beepKeyboard\__init__.py:86
 msgid "Beep for &toggle keys changes"
 msgstr ""
+"pitar al &alternar el estado de teclas como mayúsculas o bloqueo numérico"
 
 #. Translators: label for a checkbox option in the settings panel.
 #: addon\globalPlugins\beepKeyboard\__init__.py:89
@@ -57,99 +60,102 @@ msgid ""
 "&Announce toggle keys changes (if Beep for toggle keys changes is disabled "
 "NVDA will have the original behavior)"
 msgstr ""
+"Verbalizar &cambios al activar o desactivar teclas de estado (si el pitido "
+"para cambios de teclas de estado está deshabilitado, NVDA tendrá el "
+"comportamiento original)"
 
 #. Translators: label for a checkbox option in the settings panel.
 #: addon\globalPlugins\beepKeyboard\__init__.py:92
 msgid "&disable beeping on password fields"
-msgstr ""
+msgstr "&deshabilitar pitidos en campos de contraseña"
 
 #. Translators: label for a button to open advanced settings dialog in the settings panel.
 #: addon\globalPlugins\beepKeyboard\__init__.py:96
 msgid "&Open advanced options"
-msgstr ""
+msgstr "&Abrir opciones avanzadas"
 
 #: addon\globalPlugins\beepKeyboard\__init__.py:98
 msgid "&Support beep keyboard add-on"
-msgstr ""
+msgstr "&Apoyar el complemento Beep Keyboard"
 
 #. Translators: This is the label for the beep keyboard advanced settings dialog
 #: addon\globalPlugins\beepKeyboard\__init__.py:115
 msgid "Advanced settings - Keyboard beep"
-msgstr ""
+msgstr "Configuración avanzada - Beep Keyboard"
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:120
 msgid "&Ignored characters with shift pressed"
-msgstr ""
+msgstr "&Caracteres a ignorar con ship presionado"
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:123
 msgid "Beep &always for the following characters"
-msgstr ""
+msgstr "pitar &siempre para los siguientes caracteres"
 
 #. Translators: label for a combo box control in the advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:127
 msgid "&Select tone to configure"
-msgstr ""
+msgstr "&Seleccione el tono para configurar"
 
 #. Translators: label for an option of a combo box control.
 #: addon\globalPlugins\beepKeyboard\__init__.py:129
 msgid "Typed characters with shift pressed"
-msgstr ""
+msgstr "Caracteres escritos con ship presionado"
 
 #. Translators: label for an option of a combo box control.
 #: addon\globalPlugins\beepKeyboard\__init__.py:131
 msgid "Custom characters"
-msgstr ""
+msgstr "Caracteres personalizados"
 
 #. Translators: label for an option of a combo box control.
 #: addon\globalPlugins\beepKeyboard\__init__.py:133
 msgid "Typed characters when  caps lock is on"
-msgstr ""
+msgstr "Caracteres escritos cuando el bloqueo de mayúsculas está activado"
 
 #. Translators: label for an option of a combo box control.
 #: addon\globalPlugins\beepKeyboard\__init__.py:135
 msgid "Toggle key goes off"
-msgstr ""
+msgstr "La tecla de estado se desactiva"
 
 #. Translators: label for an option of a combo box control.
 #: addon\globalPlugins\beepKeyboard\__init__.py:137
 msgid "Toggle key goes on"
-msgstr ""
+msgstr "La tecla de estado se activa"
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:142
 msgid "Tone &pitch"
-msgstr ""
+msgstr "Frecuencia de tono"
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:145
 msgid "Tone &length"
-msgstr ""
+msgstr "Duración de tono"
 
 #. Translators: label for an edit text control option in the advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:148
 msgid "Tone &volume"
-msgstr ""
+msgstr "Volumen de tono"
 
 #. Translators: label for a button to play demo tone in advanced settings dialog.
 #: addon\globalPlugins\beepKeyboard\__init__.py:151
 msgid "&Test tone"
-msgstr ""
+msgstr "Probar tono"
 
 #. Translators: an error message sent to ve spoken by NVDA.
 #: addon\globalPlugins\beepKeyboard\__init__.py:166
 msgid "You entered a wrong value. Please correct it or discard changes."
-msgstr ""
+msgstr "Ingresaste un valor incorrecto. Corríjelo o descarta los cambios."
 
 #: addon\globalPlugins\beepKeyboard\_beepKeyboardUtils.py:135
 msgid "&Not now"
-msgstr ""
+msgstr "&Ahora no"
 
 #: addon\globalPlugins\beepKeyboard\_beepKeyboardUtils.py:146
 #, python-format
 msgid "Request for contributions to %s"
-msgstr ""
+msgstr "Solicitud de contribuciones para %s"
 
 #: addon\globalPlugins\beepKeyboard\_beepKeyboardUtils.py:147
 msgid ""
@@ -163,9 +169,19 @@ msgid ""
 "to complete your donation.\n"
 "Thank you for your support and generosity."
 msgstr ""
+"La creación de complementos exige mucho tiempo y esfuerzo. Debido a las "
+"bajas oportunidades laborales en mi país, tus donaciones podrían ayudar "
+"significativamente a dedicar más tiempo al desarrollo de complementos "
+"gratuitos para la comunidad.\n"
+"Tu contribución apoyaría el desarrollo de este y otros proyectos "
+"gratuitos.\n"
+"¿Te gustaría contribuir a esta causa? Selecciona entre nuestros métodos de "
+"pago disponibles a continuación. Serás redirigido al sitio web "
+"correspondiente para completar tu donación.\n"
+"Gracias por tu apoyo y generosidad."
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 #: buildVars.py:20
 msgid "This add-on beeps with some keyboard events."
-msgstr ""
+msgstr "Este complemento emite un pitido con algunos eventos del teclado."
