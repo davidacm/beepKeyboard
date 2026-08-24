@@ -1,7 +1,7 @@
 from site_scons.site_tools.NVDATool.utils import _
 
 class Config:
-	VERSION = "26.5.1"
+	VERSION = "26.5.2"
 	MIN_NVDA = "2018.3.0"
 	LAST_TESTED = "2026.1"
 	# Essential Metadata
@@ -11,9 +11,9 @@ class Config:
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	DESCRIPTION = _("""This add-on beeps with some keyboard events.""")
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	CHANGELOG = _("""Initial migration to the new template.""")
+	CHANGELOG = _("""Fixed incorrect add-on repo URL.""")
 	author="David CM <dhf360@gmail.com>"
-	URL = "https://github.com/david-acm/NVDA-beepKeyboard"
+	URL = "https://github.com/david-acm/beepKeyboard"
 
 from site_scons.site_tools.NVDATool.typings import AddonInfo, BrailleTables, SymbolDictionaries, SpeechDictionaries
 
