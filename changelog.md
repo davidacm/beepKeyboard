@@ -1,3 +1,7 @@
+# Version 26.8.0
+
+* Capital letter beeps are now more accurate, only sound in edit fields, and no longer duplicate NVDA's own beep for capitals.""")
+
 # version 26.5.1.
 
 Added support for NVDA 2026.1.

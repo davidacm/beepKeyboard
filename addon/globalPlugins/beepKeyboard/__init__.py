@@ -5,7 +5,7 @@
 # Released under GPL 2
 #globalPlugins/beepKeyboard.py
 
-import api, codecs, config, globalPluginHandler, gui, keyboardHandler, tones, ui, winreg, winUser, wx, addonHandler
+import api, codecs, config, controlTypes, globalPluginHandler, gui, keyboardHandler, synthDriverHandler, tones, ui, winreg, winUser, wx, addonHandler
 from .beepKeyboardUtils import configSpec, registerConfig, showDonationsDialog
 addonHandler.initTranslation()
 
@@ -39,6 +39,46 @@ def beep(l):
 	""" it receives a list with three arguments to beep: [pitch, length, volume]"""
 	if not (AF.disableBeepingOnPasswordFields and api.getFocusObject().isProtected):
 		tones.beep(*l, right=l[-1])
+
+try:
+	# available since NVDA 2025.1, used by NVDA itself for the "only in edit controls" typed
+	# character/word echo option.
+	from speech.speech import isFocusEditable as _nativeIsFocusEditable
+except ImportError:
+	_nativeIsFocusEditable = None
+
+def isFocusEditable(obj):
+	""" tells whether obj should be considered an editable text field.
+	Uses NVDA's own speech.speech.isFocusEditable when available (NVDA 2025.1 and later);
+	on older NVDA versions, where that function does not exist, falls back to a reimplementation
+	of the same criteria.
+	"""
+	if _nativeIsFocusEditable is not None:
+		return _nativeIsFocusEditable()
+	if not obj: return False
+	controls = (controlTypes.ROLE_EDITABLETEXT, controlTypes.ROLE_DOCUMENT, controlTypes.ROLE_TERMINAL)
+	return (obj.role in controls or controlTypes.STATE_EDITABLE in obj.states) and controlTypes.STATE_READONLY not in obj.states
+
+def isNativeCapsBeepActive(obj, ch):
+	""" tells whether NVDA's own "Beep for capitals" voice setting will already play its beep
+	for this exact typed character, so our own capitals beep would just be a duplicate.
+	NVDA beeps here when the active synthesizer has "beep for capitals" enabled and the
+	keyboard "speak typed characters" setting applies to the current focus (replicates the
+	same decision NVDA's speech.speakTypedCharacters makes before calling speakSpelling).
+	"""
+	if not ch.isupper(): return False
+	synth = synthDriverHandler.getSynth()
+	if not synth: return False
+	try:
+		if not config.conf["speech"][synth.name]["beepForCapitals"]: return False
+	except KeyError:
+		return False
+	mode = config.conf["keyboard"]["speakTypedCharacters"]
+	if isinstance(mode, bool):
+		mode = 2 if mode else 0
+	if mode == 0: return False
+	if mode == 1: return isFocusEditable(obj)
+	return True
 
 #saves the original _reportToggleKey function
 origReportToggleKey = keyboardHandler.KeyboardInputGesture._reportToggleKey
@@ -212,9 +252,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def event_typedCharacter(self, obj, nextHandler, ch):
 		nextHandler()
-		if AF.beepUpperWithCapsLock and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper():
+		if AF.beepUpperWithCapsLock and winUser.getKeyState(winUser.VK_CAPITAL)&1 and ch.isupper() and isFocusEditable(obj) and not isNativeCapsBeepActive(obj, ch):
 			beep(AF.capsLockUpperTone)
-		elif AF.beepCharacterWithShift and not winUser.getKeyState(winUser.VK_CONTROL) &32768 and winUser.getKeyState(winUser.VK_SHIFT) &32768 and ch not in self.ignoredCharactersForShift and not (config.conf["keyboard"]["beepForLowercaseWithCapslock"] and ch.islower() and winUser.getKeyState(winUser.VK_CAPITAL)&1):
+		elif (
+			AF.beepCharacterWithShift
+			and not winUser.getKeyState(winUser.VK_CONTROL) &32768
+			and winUser.getKeyState(winUser.VK_SHIFT) &32768
+			# ch.isupper() is the ground truth for whether shift actually produced an uppercase
+			# letter; the live shift key state can lag behind fast typing and briefly still read
+			# as pressed for a character it did not actually shift (e.g. a caps-lock-lowercased
+			# letter typed right after a shifted one), which used to cause spurious beeps.
+			and (ch.isupper() if ch.isalpha() else True)
+			and ch not in self.ignoredCharactersForShift
+			and isFocusEditable(obj)
+			and not isNativeCapsBeepActive(obj, ch)
+		):
 			beep(AF.shiftedCharactersTone)
 		elif ch in self.beepForCharacters: beep(AF.customCharactersTone)
 
